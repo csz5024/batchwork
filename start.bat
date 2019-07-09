@@ -1,19 +1,19 @@
 @echo off
 echo Starting SQL Script
 SETLOCAL ENABLEDELAYEDEXPANSION
+cd %cd%
 
 FOR /F "tokens=* USEBACKQ" %%F IN (`hostname`) DO (
 	SET hostboi=%%F
 )
 
-cd %cd%
-SET count=1
+Rem SET count=1
 SET Instance=""
 CALL :UpCase hostboi
 SET hostboi
 FOR /F "tokens=* USEBACKQ skip=2" %%F IN (`sqlcmd -L`) DO (
-	SET var!count!=%%F
-	SET /a count=!count!+1
+	Rem SET var!count!=%%F
+	Rem SET /a count=!count!+1
 	FOR /F "tokens=1,2 delims=\" %%A IN ("%%F") DO (
 		Rem echo %%A, %%B
 		Rem echo %%A,%hostboi%
@@ -21,7 +21,7 @@ FOR /F "tokens=* USEBACKQ skip=2" %%F IN (`sqlcmd -L`) DO (
 	)
 )
 
-echo Instance: %Instance%
+Rem echo Instance: %Instance%
 
 sqlcmd -S .\%Instance% -i InstallScript.sql
 
