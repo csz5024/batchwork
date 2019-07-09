@@ -3,17 +3,16 @@ echo Starting SQL Script
 SETLOCAL ENABLEDELAYEDEXPANSION
 cd %cd%
 
+:: Calls hostname command ::
 FOR /F "tokens=* USEBACKQ" %%F IN (`hostname`) DO (
 	SET hostboi=%%F
 )
 
-Rem SET count=1
 SET Instance=""
+:: Changes hostname to all uppercase to match SQLServer ::
 CALL :UpCase hostboi
 SET hostboi
 FOR /F "tokens=* USEBACKQ skip=2" %%F IN (`sqlcmd -L`) DO (
-	Rem SET var!count!=%%F
-	Rem SET /a count=!count!+1
 	FOR /F "tokens=1,2 delims=\" %%A IN ("%%F") DO (
 		Rem echo %%A, %%B
 		Rem echo %%A,%hostboi%
@@ -31,8 +30,6 @@ GOTO:EOF
 
 
 :UpCase
-:: Subroutine to convert a variable VALUE to all upper case.
-:: The argument for this subroutine is the variable NAME.
 SET %~1=!%~1:a=A!
 SET %~1=!%~1:b=B!
 SET %~1=!%~1:c=C!
