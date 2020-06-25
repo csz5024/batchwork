@@ -1,2 +1,2 @@
 # batchwork
-Part of summer internship work, used to automate an installation process.
+Summer Internship work for the Navy, one click installer for Microsoft SQL Studios and dependencies.
